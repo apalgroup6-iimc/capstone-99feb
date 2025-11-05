@@ -80,7 +80,7 @@ function Home() {
         }
       }
 
-      console.log('[APAL] Prompt received from the user(?): ', activePrompt.content)
+      console.log('[APAL] Prompt received from the user(?): ', activePrompt)
 
       // Get AI response
       // THIS WHERE THE CALL TO THE LLM  WOULD BE MADE WITH ALL THE MESSAGES!
