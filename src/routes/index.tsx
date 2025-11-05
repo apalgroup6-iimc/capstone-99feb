@@ -80,9 +80,11 @@ function Home() {
         }
       }
 
-      console.log('[APAL] Prompt received from the user(?): ', activePrompt)
+      console.log('[APAL] Prompt received from the user(?): ', activePrompt.content)
 
       // Get AI response
+      // THIS WHERE THE CALL TO THE LLM  WOULD BE MADE WITH ALL THE MESSAGES!
+      console.log('[APAL] Sending Active prompt (???): ', messages, "| userMessage= ", userMessage)
       const response = await genAIResponse({
         data: {
           messages: [...messages, userMessage],
@@ -90,6 +92,7 @@ function Home() {
         },
       })
 
+      console.log('[APAL] Prompt Completion Response Body (???): ',  response.body)
       const reader = response.body?.getReader()
       if (!reader) {
         throw new Error('No reader found in response')
