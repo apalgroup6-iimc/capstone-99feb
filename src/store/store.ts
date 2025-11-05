@@ -29,7 +29,8 @@ const initialState: State = {
   conversations: [],
   currentConversationId: null,
   isLoading: false,
-  isBannerVisible: true
+  // CHANGED - APAL
+  isBannerVisible: false
 }
 
 export const store = new Store<State>(initialState)
