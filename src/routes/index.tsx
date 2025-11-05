@@ -80,7 +80,7 @@ function Home() {
         }
       }
 
-      console.log('[APAL] Prompt received from the user(?): '+activePrompt)
+      console.log('[APAL] Prompt received from the user(?): ', activePrompt)
 
       // Get AI response
       const response = await genAIResponse({
@@ -129,6 +129,9 @@ function Home() {
               ...newMessage,
               content: newMessage.content + slice,
             }
+
+            console.log("[APAL] >> Set pending message chunk: ", newMessage.content)
+            
             setPendingMessage({ ...newMessage })
 
             // Dynamic delay for natural typing rhythm
@@ -218,8 +221,8 @@ function Home() {
       
       let conversationId = currentConversationId
 
-      console.log("[APAL] Current Conversation ID: "+ currentConversationId)
-      console.log("[APAL] Current Conversation userMessage: "+ userMessage)
+      console.log("[APAL] Current Conversation ID: ", currentConversationId)
+      console.log("[APAL] Current Conversation user-role:", userMessage.role, ", user-mesg ", userMessage.content)
 
       // If no current conversation, create one in Convex first
       if (!conversationId) {
@@ -229,11 +232,11 @@ function Home() {
           const convexId = await createNewConversation(conversationTitle)
           
           if (convexId) {
-            console.log('Successfully created Convex conversation with ID:', convexId)
+            console.log('[APAL] Successfully created Convex conversation with ID:', convexId)
             conversationId = convexId
             
             // Add user message directly to Convex
-            console.log('Adding user message to Convex conversation:', userMessage.content)
+            console.log('[APAL]  Adding user message to Convex conversation:', userMessage.content)
             await addMessage(conversationId, userMessage)
           } else {
             console.warn('Failed to create Convex conversation, falling back to local')
