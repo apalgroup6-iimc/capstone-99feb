@@ -71,6 +71,7 @@ function Home() {
     try {
       // Get active prompt
       const activePrompt = getActivePrompt(store.state)
+      
       let systemPrompt
       if (activePrompt) {
         systemPrompt = {
@@ -78,6 +79,8 @@ function Home() {
           enabled: true,
         }
       }
+
+      console.log('[APAL] Prompt received from the user(?): '+activePrompt)
 
       // Get AI response
       const response = await genAIResponse({
@@ -179,11 +182,11 @@ function Home() {
       setPendingMessage(null)
       if (newMessage.content.trim()) {
         // Add AI message to Convex
-        console.log('Adding AI response to conversation:', conversationId)
+        console.log('[APAL] Adding AI response to conversation:', conversationId)
         await addMessage(conversationId, newMessage)
       }
     } catch (error) {
-      console.error('Error in AI response:', error)
+      console.error('[APAL] Error in AI response:', error)
       // Add an error message to the conversation
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -215,10 +218,13 @@ function Home() {
       
       let conversationId = currentConversationId
 
+      console.log("[APAL] Current Conversation ID: "+ currentConversationId)
+      console.log("[APAL] Current Conversation userMessage: "+ userMessage)
+
       // If no current conversation, create one in Convex first
       if (!conversationId) {
         try {
-          console.log('Creating new Convex conversation with title:', conversationTitle)
+          console.log('[APAL] Creating new Convex conversation with title:', conversationTitle)
           // Create a new conversation with our title
           const convexId = await createNewConversation(conversationTitle)
           
@@ -251,7 +257,7 @@ function Home() {
         }
       } else {
         // We already have a conversation ID, add message directly to Convex
-        console.log('Adding user message to existing conversation:', conversationId)
+        console.log('[APAL] Adding user message to existing conversation:', conversationId)
         await addMessage(conversationId, userMessage)
       }
       
