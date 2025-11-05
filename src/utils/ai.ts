@@ -69,6 +69,9 @@ export const genAIResponse = createServerFn({ method: 'GET', response: 'raw' })
       )
     }
 
+    // Got a chat!!!
+     console.log(">>>>>>>>>>>> Got this data: "+ {data})
+    
     // Create Anthropic client with proper configuration
     // Don't set baseURL - Netlify AI Gateway will intercept requests to api.anthropic.com automatically
     const anthropic = new Anthropic({
